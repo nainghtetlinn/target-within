@@ -66,8 +66,8 @@ const AddNewTarget = () => {
   };
 
   return (
-    <main className="text-primary min-h-[92vh] flex justify-center items-center p-2 mb-[5rem]">
-      <fieldset className="border-2 border-primary p-3 w-full">
+    <main className="text-primary dark:text-white min-h-[92vh] flex justify-center items-center p-2 mb-[5rem] dark:bg-dSec">
+      <fieldset className="border-2 border-primary dark:border-white p-3 w-full dark:bg-dPri">
         <legend className="font-semibold text-xl">Add New Target</legend>
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col mb-5">
