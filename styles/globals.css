@@ -1,16 +1,34 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1 {
+    @apply text-3xl;
+  }
+  h2 {
+    @apply text-2xl;
+  }
+  h3 {
+    @apply text-xl;
+  }
+  h4 {
+    @apply text-base;
+  }
+  input {
+    @apply bg-secondary/20 text-primary p-2 border-2 border-primary placeholder:text-primary;
+  }
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+@layer components {
+  .bar {
+    @apply h-1 bg-[#3da9fc] rounded-full dark:bg-white;
+  }
+  .footer {
+    @apply py-4 px-8 hover:bg-primary dark:hover:bg-white hover:text-white dark:hover:text-primary cursor-pointer select-none transition-colors;
+  }
 }
 
-* {
-  box-sizing: border-box;
+.dropDown button {
+  @apply p-2 text-left text-white hover:bg-white hover:text-[#3da9fc];
 }
