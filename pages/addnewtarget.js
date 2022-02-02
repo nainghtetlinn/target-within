@@ -3,8 +3,8 @@ import { BsFillPlusCircleFill } from 'react-icons/bs';
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { useGlobelContext } from '../context';
 
-const addTarget = () => {
-  const { targets, setTargets } = useGlobelContext();
+const AddNewTarget = () => {
+  const { setTargets } = useGlobelContext();
   const [properties, setProperties] = useState({
     title: '',
     dueDate: '',
@@ -42,7 +42,9 @@ const addTarget = () => {
       complete: false,
     };
 
-    setTargets([...targets, newTarget]);
+    setTargets((prev) => {
+      return (prev = [...prev, newTarget]);
+    });
     setProperties({
       title: '',
       dueDate: '',
@@ -158,4 +160,4 @@ const addTarget = () => {
   );
 };
 
-export default addTarget;
+export default AddNewTarget;

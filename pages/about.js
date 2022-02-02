@@ -15,14 +15,14 @@ const about = () => {
       </div>
       <h3 className="mt-8">How this app become</h3>
       <div>
-        I got this idea when I attempt an online event called 'VarCamp'.
+        I got this idea when I attempt an online event called == VarCamp.
       </div>
       <div>
         During that event I notice myself that there are still many things I
         have to know as a web developer.
       </div>
       <div className="mt-5">
-        So I made this app to force study about web development as I'm lazy in
+        So I made this app to force study about web development as Im lazy in
         studying.
       </div>
       <div className="mt-5">Sorry for my bad English</div>

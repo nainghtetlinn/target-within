@@ -2,7 +2,7 @@ import React, { useState, createContext, useContext, useEffect } from 'react';
 import { FaTasks } from 'react-icons/fa';
 import { useRouter } from 'next/router';
 
-const Context = createContext();
+export const Context = createContext();
 
 const Provider = ({ children }) => {
   const [isDark, setIsDark] = useState(false);
