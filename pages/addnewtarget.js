@@ -4,7 +4,7 @@ import { AiFillCloseCircle } from 'react-icons/ai';
 import { useGlobelContext } from '../context';
 
 const AddNewTarget = () => {
-  const { setTargets } = useGlobelContext();
+  const { setTargets, showNoti } = useGlobelContext();
   const [properties, setProperties] = useState({
     title: '',
     dueDate: '',
@@ -43,7 +43,7 @@ const AddNewTarget = () => {
     };
 
     setTargets((prev) => {
-      return (prev = [...prev, newTarget]);
+      return (prev = [newTarget, ...prev]);
     });
     setProperties({
       title: '',
@@ -51,6 +51,7 @@ const AddNewTarget = () => {
       dueTime: '',
       tasks: [{ name: '', complete: false }],
     });
+    showNoti(true, 'success', 'Target Added');
   };
 
   const addTask = () => {

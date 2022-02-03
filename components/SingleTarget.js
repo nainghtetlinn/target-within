@@ -16,7 +16,7 @@ const SingleTarget = ({ title, tasks, id, startedDate, dueDate, complete }) => {
   // calculate added time
   const historyDate = `Tasks are started since ${fixNumber(
     formetDate(startedDate).getDate()
-  )}, ${fixNumber(formetDate(startedDate).getMonth())} ${formetDate(
+  )}, ${fixNumber(formetDate(startedDate).getMonth() + 1)} ${formetDate(
     startedDate
   ).getFullYear()}`;
 
@@ -55,7 +55,7 @@ const SingleTarget = ({ title, tasks, id, startedDate, dueDate, complete }) => {
       <>
         <div>Due Date</div>
         <div>{`${fixNumber(formetDate(dueDate).getDate())}, ${fixNumber(
-          formetDate(dueDate).getMonth() + 1
+          formetDate(dueDate).getMonth()
         )} ${formetDate(dueDate).getFullYear()} [${fixNumber(
           formetDate(dueDate).getHours()
         )}hr : ${fixNumber(formetDate(dueDate).getMinutes())}]`}</div>

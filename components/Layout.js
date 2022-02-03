@@ -1,15 +1,15 @@
 import React from 'react';
 
 import Navmenu from './Navmenu';
-import FooterNav from './FooterNav';
+import Navbar from '../components/Navbar';
 
 const Layout = ({ children }) => {
   return (
     <>
-      <div className="max-w-lg m-auto min-h-screen overflow-hidden bg-[#fffffe] dark:bg-primary relative">
+      <div className="max-w-lg m-auto min-h-screen overflow-x-hidden bg-[#fffffe] dark:bg-primary relative">
         <Navmenu />
+        <Navbar />
         {children}
-        <FooterNav />
       </div>
     </>
   );

@@ -24,9 +24,6 @@
   .bar {
     @apply h-1 bg-[#3da9fc] rounded-full dark:bg-white;
   }
-  .footer {
-    @apply py-4 px-8 hover:bg-primary dark:hover:bg-white hover:text-white dark:hover:text-primary cursor-pointer select-none transition-colors;
-  }
 }
 
 .dropDown button {

@@ -35,7 +35,7 @@ const Navmenu = () => {
   }, [isOpen]);
 
   return (
-    <nav className="z-10 min-h-[8vh] relative flex items-center justify-between px-5 py-3 text-primary dark:text-white">
+    <nav className="z-10 min-h-[8vh] relative flex items-center justify-between px-5 py-3 text-primary dark:text-white border-b-2">
       <div>
         <h2 className="font-bold select-none">Target_within</h2>
       </div>

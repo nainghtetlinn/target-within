@@ -5,6 +5,11 @@ import { useRouter } from 'next/router';
 export const Context = createContext();
 
 const Provider = ({ children }) => {
+  const [noti, setNoti] = useState({
+    show: false,
+    type: '',
+    message: '',
+  });
   const [isDark, setIsDark] = useState(false);
   const [sortType, setSortType] = useState('Sort by');
   const [targets, setTargets] = useState([
@@ -73,7 +78,6 @@ const Provider = ({ children }) => {
     });
     targets = newTargets;
     setTargets((prev) => newTargets);
-    console.log(targets);
   };
 
   const toggleFinish = (id, index) => {
@@ -97,25 +101,19 @@ const Provider = ({ children }) => {
   };
 
   const sortByNewest = (x) => {
-    setTargets(
-      targets.sort((a, b) => b.startedDate.getTime() - a.startedDate.getTime())
-    );
+    setTargets(targets.sort((a, b) => b.startedDate - a.startedDate));
     setSortType((prev) => (prev = 'Newest tasks'));
     router.push('/');
   };
 
   const sortByOldest = () => {
-    setTargets(
-      targets.sort((a, b) => a.startedDate.getTime() - b.startedDate.getTime())
-    );
+    setTargets(targets.sort((a, b) => a.startedDate - b.startedDate));
     setSortType((prev) => (prev = 'Oldest tasks'));
     router.push('/');
   };
 
   const sortByNearDeadline = () => {
-    setTargets(
-      targets.sort((a, b) => a.dueDate.getTime() - b.dueDate.getTime())
-    );
+    setTargets(targets.sort((a, b) => a.dueDate - b.dueDate));
     setSortType((prev) => (prev = 'Near deadline'));
     router.push('/');
   };
@@ -159,6 +157,10 @@ const Provider = ({ children }) => {
     return a < 10 ? '0' + a : a;
   };
 
+  const showNoti = (show = false, type = '', message = '') => {
+    setNoti({ show, type, message });
+  };
+
   return (
     <Context.Provider
       value={{
@@ -174,6 +176,7 @@ const Provider = ({ children }) => {
         sortByNearDeadline,
         sortByIncomplete,
         deleteTarget,
+        showNoti,
       }}
     >
       {children}
