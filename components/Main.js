@@ -8,7 +8,7 @@ const Main = () => {
   return (
     <>
       {targets.length ? (
-        <main className="min-h-[92vh] w-full bg-slate-200 dark:bg-dSec  flex flex-col p-5 text-primary">
+        <main className="min-h-[87vh] w-full bg-slate-200 dark:bg-dSec relative flex flex-col p-5 text-primary">
           <Dropdown />
           <section>
             {targets.map((target) => {
@@ -17,7 +17,7 @@ const Main = () => {
           </section>
         </main>
       ) : (
-        <main className="min-h-[92vh] w-full bg-slate-200 dark:bg-dSec flex flex-col justify-center items-center text-xl p-5 text-secondary dark:text-white">
+        <main className="min-h-[87vh] w-full bg-slate-200 dark:bg-dSec flex flex-col justify-center items-center text-xl p-5 text-secondary dark:text-white">
           <div>There is no target yet.</div>
         </main>
       )}

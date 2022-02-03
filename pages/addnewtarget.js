@@ -67,10 +67,10 @@ const AddNewTarget = () => {
   };
 
   return (
-    <main className="text-primary dark:text-white min-h-[92vh] flex justify-center items-center p-2 pb-[5rem] dark:bg-dSec">
+    <main className="text-primary dark:text-white min-h-[87vh] flex justify-center items-center p-2 pb-[5rem] dark:bg-dSec">
       <fieldset className="border-2 border-primary dark:border-white p-3 w-full dark:bg-dPri">
         <legend className="font-semibold text-xl">Add New Target</legend>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} autoComplete="off">
           <div className="flex flex-col mb-5">
             <label htmlFor="title" className="text-lg font-medium">
               Title :

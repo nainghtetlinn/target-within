@@ -6,9 +6,9 @@ export const Context = createContext();
 
 const Provider = ({ children }) => {
   const [noti, setNoti] = useState({
-    show: false,
+    show: true,
     type: '',
-    message: '',
+    message: 'hidfa',
   });
   const [isDark, setIsDark] = useState(false);
   const [sortType, setSortType] = useState('Sort by');
@@ -101,30 +101,35 @@ const Provider = ({ children }) => {
   };
 
   const sortByNewest = (x) => {
+    showNoti(true, 'success', 'Sorted by newest');
     setTargets(targets.sort((a, b) => b.startedDate - a.startedDate));
     setSortType((prev) => (prev = 'Newest tasks'));
     router.push('/');
   };
 
   const sortByOldest = () => {
+    showNoti(true, 'success', 'Sorted by oldest');
     setTargets(targets.sort((a, b) => a.startedDate - b.startedDate));
     setSortType((prev) => (prev = 'Oldest tasks'));
     router.push('/');
   };
 
   const sortByNearDeadline = () => {
+    showNoti(true, 'success', 'Sorted by near deadline');
     setTargets(targets.sort((a, b) => a.dueDate - b.dueDate));
     setSortType((prev) => (prev = 'Near deadline'));
     router.push('/');
   };
 
   const sortByIncomplete = () => {
+    showNoti(true, 'success', 'Sorted by incomplete');
     setTargets(targets.sort((a, b) => a.complete - b.complete));
     setSortType((prev) => (prev = 'Incomplete'));
     router.push('/');
   };
 
   const deleteTarget = (id) => {
+    showNoti(true, 'danger', 'Target Deleted');
     const a = targets.filter((t) => {
       return t.id !== id;
     });
@@ -176,6 +181,7 @@ const Provider = ({ children }) => {
         sortByNearDeadline,
         sortByIncomplete,
         deleteTarget,
+        noti,
         showNoti,
       }}
     >

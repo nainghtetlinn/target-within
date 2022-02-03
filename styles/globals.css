@@ -16,7 +16,7 @@
     @apply text-base;
   }
   input {
-    @apply bg-secondary/20 text-primary p-2 border-2 border-primary placeholder:text-primary dark:placeholder:text-white dark:text-white;
+    @apply bg-secondary/20 text-primary p-2 border-2 border-primary placeholder:text-primary dark:placeholder:text-white dark:text-white outline-0 focus:border-dPri dark:focus:border-white;
   }
 }
 
