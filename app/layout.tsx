@@ -1,14 +1,9 @@
 import type { Metadata } from 'next'
-import { Roboto } from 'next/font/google'
 import './globals.css'
 
+import ThemeProvider from '@/providers/themeProvider'
 import LocalizationProvider from '@/providers/localizationProvider'
 import StoreProvider from '@/providers/storeProvider'
-
-const roboto = Roboto({
-  weight: ['300', '400', '500', '700'],
-  subsets: ['latin'],
-})
 
 export const metadata: Metadata = {
   title: 'Target within',
@@ -22,12 +17,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={roboto.className}>
-        <LocalizationProvider>
-          <StoreProvider>
-            <main>{children}</main>
-          </StoreProvider>
-        </LocalizationProvider>
+      <body>
+        <ThemeProvider>
+          <LocalizationProvider>
+            <StoreProvider>
+              <main>{children}</main>
+            </StoreProvider>
+          </LocalizationProvider>
+        </ThemeProvider>
       </body>
     </html>
   )
