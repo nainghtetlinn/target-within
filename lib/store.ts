@@ -1,8 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
+import targetReducer from './features/target'
 
 export const makeStore = () => {
   return configureStore({
-    reducer: {},
+    reducer: { target: targetReducer },
   })
 }
 
