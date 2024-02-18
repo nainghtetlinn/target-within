@@ -63,11 +63,34 @@ const targetSlice = createSlice({
 
       state.targets.push(newTarget)
       state.tasks = [...state.tasks, ...newTasks]
-
-      return state
+    },
+    toggleIsCompleteTask: (
+      state,
+      action: PayloadAction<{
+        taskId: string
+      }>
+    ) => {
+      state.tasks.map(t => {
+        if (t.id === action.payload.taskId) {
+          t.isComplete = !t.isComplete
+        }
+        return t
+      })
+    },
+    updateTargetState: state => {
+      state.targets.map(target => {
+        const unfinishTasks = state.tasks.filter(
+          task => task.targetId === target.id && !task.isComplete
+        )
+        if (unfinishTasks.length === 0) {
+          target.isComplete = true
+        }
+        return target
+      })
     },
   },
 })
 
-export const { createTarget } = targetSlice.actions
+export const { createTarget, toggleIsCompleteTask, updateTargetState } =
+  targetSlice.actions
 export default targetSlice.reducer
