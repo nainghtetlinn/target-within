@@ -1,5 +1,7 @@
 'use client'
 
+import CreateNewTargetButton from './components/CreateNewTargetButton'
+
 import { useAppDispatch, useAppSelector } from '@/lib/hook'
 import {
   createTarget,
@@ -9,7 +11,7 @@ import {
 
 export default function Home() {
   const dispatch = useAppDispatch()
-  const { tasks } = useAppSelector(store => store.target)
+  const { tasks, targets } = useAppSelector(store => store.target)
 
   const createNewTarget = () => {
     dispatch(
@@ -35,9 +37,7 @@ export default function Home() {
 
   return (
     <section>
-      Hello world
-      <button onClick={createNewTarget}>Click</button>
-      <button onClick={updateIsCompleteTaskFn}>update</button>
+      <CreateNewTargetButton />
     </section>
   )
 }
