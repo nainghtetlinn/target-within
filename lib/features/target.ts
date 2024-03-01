@@ -24,7 +24,36 @@ type TargetStateType = {
   targets: TargetType[]
   tasks: TaskType[]
 }
-const initialState: TargetStateType = { targets: [], tasks: [] }
+const initialState: TargetStateType = {
+  targets: [
+    {
+      id: '2dce512c-0346-4e38-a85d-771175e05a7e',
+      title: 'Title',
+      description: '',
+      startedDate: new Date('2024-03-01T15:01:22.021Z'),
+      dueDate: new Date('2024-03-06T15:01:04.000Z'),
+      tasks: [
+        '6f5a7221-8dd7-4323-ac4d-bab3f15893d1',
+        '32784c5d-8e5c-467d-badf-b9efbb746d39',
+      ],
+      isComplete: false,
+    },
+  ],
+  tasks: [
+    {
+      id: '6f5a7221-8dd7-4323-ac4d-bab3f15893d1',
+      targetId: '2dce512c-0346-4e38-a85d-771175e05a7e',
+      title: 'Hello',
+      isComplete: false,
+    },
+    {
+      id: '32784c5d-8e5c-467d-badf-b9efbb746d39',
+      targetId: '2dce512c-0346-4e38-a85d-771175e05a7e',
+      title: 'World',
+      isComplete: false,
+    },
+  ],
+}
 
 const targetSlice = createSlice({
   name: 'target',
@@ -51,7 +80,7 @@ const targetSlice = createSlice({
         title: target.title,
         description: target.description,
         startedDate: new Date(),
-        dueDate: target.dueDate,
+        dueDate: new Date(target.dueDate),
         tasks: taskIds,
         isComplete: false,
       }
