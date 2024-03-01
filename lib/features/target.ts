@@ -2,13 +2,15 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { v4 as uuid } from 'uuid'
 
-type TaskType = {
+import { NewTargetType } from '@/validation/target'
+
+export type TaskType = {
   id: string
   targetId: string
   title: string
   isComplete: boolean
 }
-type TargetType = {
+export type TargetType = {
   id: string
   title: string
   description?: string
@@ -16,12 +18,6 @@ type TargetType = {
   dueDate: Date
   isComplete: boolean
   tasks: string[]
-}
-type NewTargetType = {
-  title: string
-  description?: string
-  startedDate: Date
-  dueDate: Date
 }
 
 type TargetStateType = {
@@ -34,35 +30,32 @@ const targetSlice = createSlice({
   name: 'target',
   initialState,
   reducers: {
-    createTarget: (
-      state,
-      action: PayloadAction<{
-        target: NewTargetType
-        tasks: string[]
-      }>
-    ) => {
+    createTarget: (state, action: PayloadAction<NewTargetType>) => {
+      const target = action.payload
+      console.log(target)
       let targetId = uuid()
       let taskIds: string[] = []
 
-      const newTasks: TaskType[] = action.payload.tasks.map(t => {
+      target?.tasks?.forEach(task => {
         const id = uuid()
         taskIds.push(id)
-        return {
+        state.tasks.push({
           id,
           targetId,
-          title: t,
+          title: task.title,
           isComplete: false,
-        }
+        })
       })
       const newTarget: TargetType = {
-        ...action.payload.target,
         id: targetId,
-        isComplete: false,
+        title: target.title,
+        description: target.description,
+        startedDate: new Date(),
+        dueDate: target.dueDate,
         tasks: taskIds,
+        isComplete: false,
       }
-
       state.targets.push(newTarget)
-      state.tasks = [...state.tasks, ...newTasks]
     },
     toggleIsCompleteTask: (
       state,

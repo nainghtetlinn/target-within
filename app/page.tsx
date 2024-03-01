@@ -16,12 +16,9 @@ export default function Home() {
   const createNewTarget = () => {
     dispatch(
       createTarget({
-        target: {
-          title: 'hello',
-          startedDate: new Date(),
-          dueDate: new Date(),
-        },
-        tasks: ['1', '2'],
+        title: 'hello',
+        dueDate: new Date(),
+        tasks: [{ title: 'hello' }],
       })
     )
   }
@@ -37,6 +34,7 @@ export default function Home() {
 
   return (
     <section>
+      <button onClick={createNewTarget}>Click</button>
       <CreateNewTargetButton />
     </section>
   )
