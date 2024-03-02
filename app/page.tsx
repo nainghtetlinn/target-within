@@ -1,41 +1,32 @@
 'use client'
 
-import CreateNewTargetButton from './components/CreateNewTargetButton'
+import { Stack, Container } from '@mui/material'
 
-import { useAppDispatch, useAppSelector } from '@/lib/hook'
-import {
-  createTarget,
-  toggleIsCompleteTask,
-  updateTargetState,
-} from '@/lib/features/target'
+import CreateNewTargetButton from './components/CreateNewTargetButton'
+import TargetItem from './components/TargetItem'
+
+import { useAppSelector } from '@/lib/hook'
 
 export default function Home() {
-  const dispatch = useAppDispatch()
   const { tasks, targets } = useAppSelector(store => store.target)
-
-  const createNewTarget = () => {
-    dispatch(
-      createTarget({
-        title: 'hello',
-        dueDate: new Date(),
-        tasks: [{ title: 'hello' }],
-      })
-    )
-  }
-
-  const updateIsCompleteTaskFn = () => {
-    dispatch(
-      toggleIsCompleteTask({
-        taskId: tasks[0].id,
-      })
-    )
-    dispatch(updateTargetState())
-  }
 
   return (
     <section>
-      <button onClick={createNewTarget}>Click</button>
-      <CreateNewTargetButton />
+      <Container sx={{ pt: 2 }}>
+        <Stack
+          direction='column'
+          gap={1}
+        >
+          {targets.map(target => (
+            <TargetItem
+              key={target.id}
+              target={target}
+              tasks={tasks.filter(task => task.targetId === target.id)}
+            />
+          ))}
+        </Stack>
+        <CreateNewTargetButton />
+      </Container>
     </section>
   )
 }
