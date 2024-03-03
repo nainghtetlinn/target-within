@@ -19,10 +19,11 @@ import {
   IconButton,
   Button,
   styled,
+  Typography,
 } from '@mui/material'
 import CircularProgressWithLabel from './CircularProgressWithLabel'
 import type { IconButtonProps } from '@mui/material'
-import type { TargetType, TaskType } from '@/lib/features/target'
+import type { TargetType } from '@/lib/features/target'
 
 import { useState, useMemo } from 'react'
 import { useAppDispatch, useAppSelector } from '@/lib/hook'
@@ -61,23 +62,20 @@ const TargetItem = ({ target }: { target: TargetType }) => {
     return allTasks.filter(t => t.targetId === target.id)
   }, [flag])
 
-  const completedTasksCount = useMemo(() => {
-    return tasks.filter(task => task.isComplete).length
+  const [count, percentage] = useMemo(() => {
+    const completedTasksCount = tasks.filter(t => t.isComplete).length
+    return [completedTasksCount, (completedTasksCount / tasks.length) * 100]
   }, [tasks])
-
-  const completedTasksPercentage = useMemo(() => {
-    return (completedTasksCount / tasks.length) * 100
-  }, [tasks, completedTasksCount])
 
   return (
     <Card raised>
       <CardHeader
-        avatar={<CircularProgressWithLabel value={completedTasksPercentage} />}
+        avatar={<CircularProgressWithLabel value={percentage} />}
         title={target.title}
         titleTypographyProps={{
           variant: 'subtitle1',
         }}
-        subheader={`${completedTasksCount} of ${tasks.length} tasks completed`}
+        subheader={`${count} of ${tasks.length} tasks completed`}
         subheaderTypographyProps={{
           variant: 'caption',
         }}
@@ -96,6 +94,7 @@ const TargetItem = ({ target }: { target: TargetType }) => {
         unmountOnExit
       >
         <Box sx={{ px: 2 }}>
+          <Typography variant='body2'>{target.description}</Typography>
           <List
             disablePadding
             dense
