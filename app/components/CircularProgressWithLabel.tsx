@@ -20,6 +20,7 @@ function CircularProgressWithLabel(
       />
       <CircularProgress
         variant='determinate'
+        color={props.value === 100 ? 'success' : 'primary'}
         sx={{ position: 'absolute', left: 0 }}
         size={50}
         thickness={4}

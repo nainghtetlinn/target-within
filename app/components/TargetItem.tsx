@@ -24,10 +24,10 @@ import CircularProgressWithLabel from './CircularProgressWithLabel'
 import type { IconButtonProps } from '@mui/material'
 import type { TargetType, TaskType } from '@/lib/features/target'
 
-import { useState } from 'react'
-import { useAppDispatch } from '@/lib/hook'
+import { useState, useMemo } from 'react'
+import { useAppDispatch, useAppSelector } from '@/lib/hook'
 
-import { toggleIsCompleteTask, updateTargetState } from '@/lib/features/target'
+import { toggleIsCompleteTask } from '@/lib/features/target'
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean
@@ -42,33 +42,45 @@ const ExpandMore = styled(({ expand, ...other }: ExpandMoreProps) => {
   }),
 }))
 
-const TargetItem = ({
-  target,
-  tasks,
-}: {
-  target: TargetType
-  tasks: TaskType[]
-}) => {
+const TargetItem = ({ target }: { target: TargetType }) => {
   const dispatch = useAppDispatch()
-  const [expanded, setExpanded] = useState(false)
+  const { tasks: allTasks } = useAppSelector(store => store.target)
 
+  const [expanded, setExpanded] = useState(false)
   const handleExpandClick = () => {
     setExpanded(!expanded)
   }
 
+  const [flag, setFlag] = useState(false)
   const handleIsCompleteTask = (id: string) => {
     dispatch(toggleIsCompleteTask({ taskId: id }))
-    dispatch(updateTargetState())
+    setFlag(prev => !prev)
   }
+
+  const tasks = useMemo(() => {
+    return allTasks.filter(t => t.targetId === target.id)
+  }, [flag])
+
+  const completedTasksCount = useMemo(() => {
+    return tasks.filter(task => task.isComplete).length
+  }, [tasks])
+
+  const completedTasksPercentage = useMemo(() => {
+    return (completedTasksCount / tasks.length) * 100
+  }, [tasks, completedTasksCount])
 
   return (
     <Card raised>
       <CardHeader
-        avatar={
-          <CircularProgressWithLabel value={target.completedPercentage} />
-        }
+        avatar={<CircularProgressWithLabel value={completedTasksPercentage} />}
         title={target.title}
-        subheader={target.description}
+        titleTypographyProps={{
+          variant: 'subtitle1',
+        }}
+        subheader={`${completedTasksCount} of ${tasks.length} tasks completed`}
+        subheaderTypographyProps={{
+          variant: 'caption',
+        }}
         action={
           <ExpandMore
             expand={expanded}
@@ -114,12 +126,14 @@ const TargetItem = ({
           }}
         >
           <Button
+            size='small'
             variant='contained'
             startIcon={<DeleteIcon />}
           >
             Delete
           </Button>
           <Button
+            size='small'
             variant='contained'
             startIcon={<EditIcon />}
           >

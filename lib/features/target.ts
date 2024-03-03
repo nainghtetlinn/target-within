@@ -16,9 +16,6 @@ export type TargetType = {
   description?: string
   startedDate: string
   dueDate: string
-  isComplete: boolean
-  completedPercentage: number
-  tasks: string[]
 }
 
 type TargetStateType = {
@@ -33,12 +30,6 @@ const initialState: TargetStateType = {
       description: 'Hello',
       startedDate: '2024-03-01T15:01:22.021Z',
       dueDate: '2024-03-06T15:01:04.000Z',
-      tasks: [
-        '6f5a7221-8dd7-4323-ac4d-bab3f15893d1',
-        '32784c5d-8e5c-467d-badf-b9efbb746d39',
-      ],
-      isComplete: false,
-      completedPercentage: 0,
     },
     {
       id: '2b720386-b0d8-42b7-9d92-64129030442f',
@@ -46,9 +37,6 @@ const initialState: TargetStateType = {
       description: '',
       startedDate: '2024-03-01T16:38:16.970Z',
       dueDate: '2024-03-30T16:38:06.000Z',
-      tasks: ['f5176dd2-5462-47d2-9620-642161149cd2'],
-      isComplete: false,
-      completedPercentage: 0,
     },
     {
       id: 'ced7a821-f260-47d6-86b0-6e6a4d697b6d',
@@ -56,12 +44,6 @@ const initialState: TargetStateType = {
       description: '',
       startedDate: '2024-03-01T16:38:30.826Z',
       dueDate: '2024-03-27T16:38:06.000Z',
-      tasks: [
-        'df24b234-5b08-4317-b57b-734017bcd90d',
-        '3bf8a4c9-80b0-4807-add4-08bba623ccbd',
-      ],
-      isComplete: false,
-      completedPercentage: 0,
     },
   ],
   tasks: [
@@ -106,13 +88,10 @@ const targetSlice = createSlice({
       const target = action.payload
 
       let targetId = uuid()
-      let taskIds: string[] = []
 
       target?.tasks?.forEach(task => {
-        const id = uuid()
-        taskIds.push(id)
         state.tasks.push({
-          id,
+          id: uuid(),
           targetId,
           title: task.title,
           isComplete: false,
@@ -124,9 +103,6 @@ const targetSlice = createSlice({
         description: target.description,
         startedDate: new Date().toISOString(),
         dueDate: target.dueDate,
-        tasks: taskIds,
-        isComplete: false,
-        completedPercentage: 0,
       }
       state.targets.push(newTarget)
     },
@@ -143,29 +119,28 @@ const targetSlice = createSlice({
         return t
       })
     },
-    updateTargetState: state => {
-      state.targets.map(target => {
-        const tasks = state.tasks.filter(task => task.targetId === target.id)
+    // updateTargetState: state => {
+    //   state.targets.map(target => {
+    //     const tasks = state.tasks.filter(task => task.targetId === target.id)
 
-        if (tasks.length > 0) {
-          const finishedTasks = tasks.filter(task => task.isComplete)
+    //     if (tasks.length > 0) {
+    //       const finishedTasks = tasks.filter(task => task.isComplete)
 
-          if (finishedTasks.length === tasks.length) {
-            target.isComplete = true
-          }
+    //       if (finishedTasks.length === tasks.length) {
+    //         target.isComplete = true
+    //       }
 
-          const finishedTasksPercentage =
-            (finishedTasks.length / tasks.length) * 100
+    //       const finishedTasksPercentage =
+    //         (finishedTasks.length / tasks.length) * 100
 
-          target.completedPercentage = finishedTasksPercentage
-        }
+    //       target.completedPercentage = finishedTasksPercentage
+    //     }
 
-        return target
-      })
-    },
+    //     return target
+    //   })
+    // },
   },
 })
 
-export const { createTarget, toggleIsCompleteTask, updateTargetState } =
-  targetSlice.actions
+export const { createTarget, toggleIsCompleteTask } = targetSlice.actions
 export default targetSlice.reducer

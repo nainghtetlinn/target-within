@@ -8,7 +8,7 @@ import TargetItem from './components/TargetItem'
 import { useAppSelector } from '@/lib/hook'
 
 export default function Home() {
-  const { tasks, targets } = useAppSelector(store => store.target)
+  const { targets } = useAppSelector(store => store.target)
 
   return (
     <section>
@@ -21,7 +21,6 @@ export default function Home() {
             <TargetItem
               key={target.id}
               target={target}
-              tasks={tasks.filter(task => task.targetId === target.id)}
             />
           ))}
         </Stack>
