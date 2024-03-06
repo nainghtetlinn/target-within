@@ -45,6 +45,10 @@ const Form = () => {
 
   const handleCreate = async (e: NewTargetType) => {
     console.log(e)
+    if (dayjs(e.dueDate).diff(dayjs()) < 0) {
+      console.log('Error')
+      return
+    }
     dispatch(createTarget(e))
   }
 
