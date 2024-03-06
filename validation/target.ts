@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 export const newTargetInputsSchema = z.object({
   title: z.string().min(1).max(255),
-  description: z.string().optional(),
+  description: z.string().max(255).optional(),
   dueDate: z.coerce.date().transform(val => val.toISOString()),
   tasks: z
     .object({
