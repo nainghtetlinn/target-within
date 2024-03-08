@@ -40,7 +40,7 @@ const Navbar = () => {
               <Button
                 size='small'
                 variant={currentRoute === '/' ? 'contained' : 'text'}
-                color='inherit'
+                color={currentRoute === '/' ? 'secondary' : 'inherit'}
                 sx={{ textTransform: 'capitalize' }}
                 onClick={() => router.push('/')}
               >
@@ -49,7 +49,7 @@ const Navbar = () => {
               <Button
                 size='small'
                 variant={currentRoute === '/about' ? 'contained' : 'text'}
-                color='inherit'
+                color={currentRoute === '/about' ? 'secondary' : 'inherit'}
                 sx={{ textTransform: 'capitalize' }}
                 onClick={() => router.push('/about')}
               >

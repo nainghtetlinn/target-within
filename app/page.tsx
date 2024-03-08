@@ -6,9 +6,17 @@ import CreateNewTargetButton from './components/CreateNewTargetButton'
 import TargetItem from './components/TargetItem'
 
 import { useAppSelector } from '@/lib/hook'
+import { useMemo } from 'react'
+import moment from 'moment'
 
 export default function Home() {
   const { targets } = useAppSelector(store => store.target)
+
+  const sortedTargets = useMemo(
+    () =>
+      [...targets].sort((a, b) => moment(b.startedDate).diff(a.startedDate)),
+    [targets]
+  )
 
   return (
     <section>
@@ -17,7 +25,7 @@ export default function Home() {
           direction='column'
           gap={1}
         >
-          {targets.map(target => (
+          {sortedTargets.map(target => (
             <TargetItem
               key={target.id}
               target={target}

@@ -27,21 +27,24 @@ const initialState: TargetStateType = {
     {
       id: '2dce512c-0346-4e38-a85d-771175e05a7e',
       title: 'Title',
-      description: 'Hello',
+      description:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
       startedDate: '2024-03-01T15:01:22.021Z',
       dueDate: '2024-03-06T15:01:04.000Z',
     },
     {
       id: '2b720386-b0d8-42b7-9d92-64129030442f',
       title: 'g',
-      description: '',
+      description:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
       startedDate: '2024-03-01T16:38:16.970Z',
-      dueDate: '2024-03-30T16:38:06.000Z',
+      dueDate: '2024-03-02T16:38:06.000Z',
     },
     {
       id: 'ced7a821-f260-47d6-86b0-6e6a4d697b6d',
       title: 'c',
-      description: '',
+      description:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
       startedDate: '2024-03-01T16:38:30.826Z',
       dueDate: '2024-03-27T16:38:06.000Z',
     },
@@ -51,7 +54,7 @@ const initialState: TargetStateType = {
       id: '6f5a7221-8dd7-4323-ac4d-bab3f15893d1',
       targetId: '2dce512c-0346-4e38-a85d-771175e05a7e',
       title: 'Hello',
-      isComplete: false,
+      isComplete: true,
     },
     {
       id: '32784c5d-8e5c-467d-badf-b9efbb746d39',
@@ -63,7 +66,7 @@ const initialState: TargetStateType = {
       id: 'f5176dd2-5462-47d2-9620-642161149cd2',
       targetId: '2b720386-b0d8-42b7-9d92-64129030442f',
       title: 'hello',
-      isComplete: false,
+      isComplete: true,
     },
     {
       id: 'df24b234-5b08-4317-b57b-734017bcd90d',

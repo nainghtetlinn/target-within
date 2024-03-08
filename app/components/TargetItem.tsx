@@ -8,6 +8,7 @@ import {
   Box,
   Card,
   CardHeader,
+  CardContent,
   CardActions,
   List,
   ListItem,
@@ -20,12 +21,14 @@ import {
   Button,
   styled,
   Typography,
+  LinearProgress,
 } from '@mui/material'
 import CircularProgressWithLabel from './CircularProgressWithLabel'
 import type { IconButtonProps } from '@mui/material'
 import type { TargetType } from '@/lib/features/target'
 
 import { useState, useMemo } from 'react'
+import moment from 'moment'
 import { useAppDispatch, useAppSelector } from '@/lib/hook'
 
 import { toggleIsCompleteTask } from '@/lib/features/target'
@@ -62,20 +65,46 @@ const TargetItem = ({ target }: { target: TargetType }) => {
     return allTasks.filter(t => t.targetId === target.id)
   }, [flag])
 
-  const [count, percentage] = useMemo(() => {
+  const [count, taskPercentage] = useMemo(() => {
     const completedTasksCount = tasks.filter(t => t.isComplete).length
-    return [completedTasksCount, (completedTasksCount / tasks.length) * 100]
+    const percentage = Math.floor((completedTasksCount / tasks.length) * 100)
+    return [completedTasksCount, percentage]
   }, [tasks])
+
+  const [status, timeLeftPercentage] = useMemo(() => {
+    const start = moment(target.startedDate)
+    const end = moment(target.dueDate)
+    const now = moment()
+    const totalRange = end.diff(start)
+    const currentRange = now.diff(start)
+    const percentage = 100 - Math.floor((currentRange / totalRange) * 100)
+    return [end.fromNow(true), percentage < 0 ? 0 : percentage]
+  }, [])
+
+  const subStatus = useMemo(() => {
+    if (taskPercentage === 100) return ''
+    return timeLeftPercentage === 0
+      ? "| Time's up"
+      : `| Complete within ${status}`
+  }, [status, taskPercentage])
 
   return (
     <Card raised>
+      <Box>
+        <LinearProgress
+          variant='determinate'
+          value={timeLeftPercentage}
+          sx={{ height: '5px' }}
+        />
+      </Box>
+
       <CardHeader
-        avatar={<CircularProgressWithLabel value={percentage} />}
+        avatar={<CircularProgressWithLabel value={taskPercentage} />}
         title={target.title}
         titleTypographyProps={{
           variant: 'subtitle1',
         }}
-        subheader={`${count} of ${tasks.length} tasks completed`}
+        subheader={`${count} of ${tasks.length} completed ${subStatus}`}
         subheaderTypographyProps={{
           variant: 'caption',
         }}
@@ -91,10 +120,30 @@ const TargetItem = ({ target }: { target: TargetType }) => {
       <Collapse
         in={expanded}
         timeout='auto'
-        unmountOnExit
       >
         <Box sx={{ px: 2 }}>
-          <Typography variant='body2'>{target.description}</Typography>
+          <Typography variant='body2'>
+            Start - {moment(target.startedDate).format('llll')}
+          </Typography>
+          <Typography variant='body2'>
+            End - {moment(target.dueDate).format('llll')}
+          </Typography>
+          <Typography variant='body2'>
+            Duration -{' '}
+            {moment
+              .duration(
+                moment(target.dueDate).diff(target.startedDate),
+                'milliseconds'
+              )
+              .humanize()}
+          </Typography>
+          <Typography
+            variant='body2'
+            sx={{ my: 1 }}
+          >
+            {target.description}
+          </Typography>
+
           <List
             disablePadding
             dense
@@ -126,7 +175,8 @@ const TargetItem = ({ target }: { target: TargetType }) => {
         >
           <Button
             size='small'
-            variant='contained'
+            variant='outlined'
+            color='error'
             startIcon={<DeleteIcon />}
           >
             Delete
